@@ -1,0 +1,26 @@
+{
+  "name": "@ensdomains/op-resolver",
+  "version": "0.0.1",
+  "description": "Packages for an ENS arbitrum resolver",
+  "main": "index.js",
+  "repository": "git@github.com:ensdomains/op-resolver.git",
+  "author": "Makoto Inoue <makoto@ens.domains>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/contracts",
+    "packages/gateway",
+    "packages/client"
+  ],
+  "private": true,
+  "scripts": {
+    "start:gateway": "yarn workspace @ensdomains/op-resolver-gateway start",
+    "start:client": "yarn workspace @ensdomains/op-resolver-client start",
+    "test": "yarn workspaces run test",
+    "lint": "yarn workspaces run lint",
+    "build": "yarn workspaces run build",
+    "clean": "rm -fr node_modules && yarn workspaces run clean"
+  },
+  "dependencies": {
+    "@ensdomains/ens-contracts": "^0.0.12"
+  }
+}

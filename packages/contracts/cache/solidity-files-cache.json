@@ -1,0 +1,996 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "/Users/makoto/work/ens/op-resolver/packages/contracts/contracts/l1/Helper_SimpleProxy.sol": {
+      "lastModificationDate": 1666955053473,
+      "contentHash": "277aee069d3430d87ed3fcb50cc9a663",
+      "sourceName": "contracts/l1/Helper_SimpleProxy.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Helper_SimpleProxy"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/packages/contracts/contracts/l1/OptimismResolverStub.sol": {
+      "lastModificationDate": 1667217949093,
+      "contentHash": "98b567a5046e4c80db98da8eb4755e40",
+      "sourceName": "contracts/l1/OptimismResolverStub.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@eth-optimism/contracts/libraries/resolver/Lib_AddressResolver.sol",
+        "@eth-optimism/contracts/libraries/codec/Lib_OVMCodec.sol",
+        "@eth-optimism/contracts/libraries/trie/Lib_SecureMerkleTrie.sol",
+        "@eth-optimism/contracts/L1/rollup/StateCommitmentChain.sol",
+        "@eth-optimism/contracts/libraries/rlp/Lib_RLPReader.sol",
+        "@eth-optimism/contracts/libraries/utils/Lib_BytesUtils.sol",
+        "hardhat/console.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OptimismResolverStub"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/hardhat/console.sol": {
+      "lastModificationDate": 1666956976401,
+      "contentHash": "4ff3cd2f6272c9a6516e9ee4f2b967d3",
+      "sourceName": "hardhat/console.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">= 0.4.22 <0.9.0"
+      ],
+      "artifacts": [
+        "console"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/resolver/Lib_AddressResolver.sol": {
+      "lastModificationDate": 1666957021250,
+      "contentHash": "34d1331425790d550286884af1599cff",
+      "sourceName": "@eth-optimism/contracts/libraries/resolver/Lib_AddressResolver.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Lib_AddressManager.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_AddressResolver"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/trie/Lib_SecureMerkleTrie.sol": {
+      "lastModificationDate": 1666957021261,
+      "contentHash": "9237036ad9eefb061b60db7e0ce18fa0",
+      "sourceName": "@eth-optimism/contracts/libraries/trie/Lib_SecureMerkleTrie.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./Lib_MerkleTrie.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_SecureMerkleTrie"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/codec/Lib_OVMCodec.sol": {
+      "lastModificationDate": 1666957021278,
+      "contentHash": "6e2de6f520efb187c5e01c485675dba8",
+      "sourceName": "@eth-optimism/contracts/libraries/codec/Lib_OVMCodec.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../rlp/Lib_RLPReader.sol",
+        "../rlp/Lib_RLPWriter.sol",
+        "../utils/Lib_BytesUtils.sol",
+        "../utils/Lib_Bytes32Utils.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_OVMCodec"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/L1/rollup/StateCommitmentChain.sol": {
+      "lastModificationDate": 1666957021233,
+      "contentHash": "bec50ce2a25260b388467e81cec4569f",
+      "sourceName": "@eth-optimism/contracts/L1/rollup/StateCommitmentChain.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../libraries/codec/Lib_OVMCodec.sol",
+        "../../libraries/resolver/Lib_AddressResolver.sol",
+        "../../libraries/utils/Lib_MerkleTree.sol",
+        "./IStateCommitmentChain.sol",
+        "./ICanonicalTransactionChain.sol",
+        "../verification/IBondManager.sol",
+        "./IChainStorageContainer.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "StateCommitmentChain"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/rlp/Lib_RLPReader.sol": {
+      "lastModificationDate": 1666957021292,
+      "contentHash": "da043486f683fccce3edacfd5f84d98d",
+      "sourceName": "@eth-optimism/contracts/libraries/rlp/Lib_RLPReader.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_RLPReader"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/utils/Lib_BytesUtils.sol": {
+      "lastModificationDate": 1666957021262,
+      "contentHash": "1ebfdb02780beca3c418a3465c33dab1",
+      "sourceName": "@eth-optimism/contracts/libraries/utils/Lib_BytesUtils.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_BytesUtils"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/resolver/Lib_AddressManager.sol": {
+      "lastModificationDate": 1666957021250,
+      "contentHash": "684734f3098d69ba634f53ab58eaf4af",
+      "sourceName": "@eth-optimism/contracts/libraries/resolver/Lib_AddressManager.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_AddressManager"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
+      "lastModificationDate": 1666956992902,
+      "contentHash": "e436cea06129be2c73cda4b1acc848b5",
+      "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Context.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Ownable"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@openzeppelin/contracts/utils/Context.sol": {
+      "lastModificationDate": 1666956992918,
+      "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
+      "sourceName": "@openzeppelin/contracts/utils/Context.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "Context"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/trie/Lib_MerkleTrie.sol": {
+      "lastModificationDate": 1666957021261,
+      "contentHash": "06df0cb2a04ccaa207eff2314e68abec",
+      "sourceName": "@eth-optimism/contracts/libraries/trie/Lib_MerkleTrie.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../utils/Lib_BytesUtils.sol",
+        "../rlp/Lib_RLPReader.sol",
+        "../rlp/Lib_RLPWriter.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_MerkleTrie"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/rlp/Lib_RLPWriter.sol": {
+      "lastModificationDate": 1666957021292,
+      "contentHash": "53fff0651143b7a21aa3b90373eace72",
+      "sourceName": "@eth-optimism/contracts/libraries/rlp/Lib_RLPWriter.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_RLPWriter"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/utils/Lib_Bytes32Utils.sol": {
+      "lastModificationDate": 1666957021253,
+      "contentHash": "d7f2a52fc5fed34eca6431d9b530995f",
+      "sourceName": "@eth-optimism/contracts/libraries/utils/Lib_Bytes32Utils.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_Bytes32Utils"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/L1/verification/IBondManager.sol": {
+      "lastModificationDate": 1666957021233,
+      "contentHash": "587fc0c46c5aea9b1fc715dc8fd2fa9e",
+      "sourceName": "@eth-optimism/contracts/L1/verification/IBondManager.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "IBondManager"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/libraries/utils/Lib_MerkleTree.sol": {
+      "lastModificationDate": 1666957021278,
+      "contentHash": "b671cbe24ef8f6422fae78d305417889",
+      "sourceName": "@eth-optimism/contracts/libraries/utils/Lib_MerkleTree.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "Lib_MerkleTree"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/L1/rollup/IStateCommitmentChain.sol": {
+      "lastModificationDate": 1666957021233,
+      "contentHash": "111e1ade1cde6245c261b01683170ef6",
+      "sourceName": "@eth-optimism/contracts/L1/rollup/IStateCommitmentChain.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../libraries/codec/Lib_OVMCodec.sol"
+      ],
+      "versionPragmas": [
+        ">0.5.0 <0.9.0"
+      ],
+      "artifacts": [
+        "IStateCommitmentChain"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/L1/rollup/ICanonicalTransactionChain.sol": {
+      "lastModificationDate": 1666957021233,
+      "contentHash": "7e4b90095962a399dc41c11860440180",
+      "sourceName": "@eth-optimism/contracts/L1/rollup/ICanonicalTransactionChain.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../libraries/codec/Lib_OVMCodec.sol",
+        "./IChainStorageContainer.sol"
+      ],
+      "versionPragmas": [
+        ">0.5.0 <0.9.0"
+      ],
+      "artifacts": [
+        "ICanonicalTransactionChain"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/L1/rollup/IChainStorageContainer.sol": {
+      "lastModificationDate": 1666957021228,
+      "contentHash": "df41f85a23f3e783857d81c90c1a7e4a",
+      "sourceName": "@eth-optimism/contracts/L1/rollup/IChainStorageContainer.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">0.5.0 <0.9.0"
+      ],
+      "artifacts": [
+        "IChainStorageContainer"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/L1/rollup/CanonicalTransactionChain.sol": {
+      "lastModificationDate": 1666957021226,
+      "contentHash": "39c2a8a44238844a261488a38b3b4ded",
+      "sourceName": "@eth-optimism/contracts/L1/rollup/CanonicalTransactionChain.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "../../standards/AddressAliasHelper.sol",
+        "../../libraries/codec/Lib_OVMCodec.sol",
+        "../../libraries/resolver/Lib_AddressResolver.sol",
+        "./ICanonicalTransactionChain.sol",
+        "./IChainStorageContainer.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.9"
+      ],
+      "artifacts": [
+        "CanonicalTransactionChain"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/node_modules/@eth-optimism/contracts/standards/AddressAliasHelper.sol": {
+      "lastModificationDate": 1666956992620,
+      "contentHash": "dfcebe065f40cb205e841943e2b9b066",
+      "sourceName": "@eth-optimism/contracts/standards/AddressAliasHelper.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.7"
+      ],
+      "artifacts": [
+        "AddressAliasHelper"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/packages/contracts/contracts/l1/dependencies.sol": {
+      "lastModificationDate": 1666955053474,
+      "contentHash": "4666e67043d1de643cd8ac1e742969ea",
+      "sourceName": "contracts/l1/dependencies.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@eth-optimism/contracts/L1/rollup/CanonicalTransactionChain.sol",
+        "@eth-optimism/contracts/L1/rollup/StateCommitmentChain.sol",
+        "@ensdomains/ens-contracts/contracts/registry/ENSRegistry.sol"
+      ],
+      "versionPragmas": [],
+      "artifacts": []
+    },
+    "/Users/makoto/work/ens/op-resolver/packages/contracts/node_modules/@ensdomains/ens-contracts/contracts/registry/ENSRegistry.sol": {
+      "lastModificationDate": 1666957022704,
+      "contentHash": "6fe078a9b569a56d86d7ddba70814c89",
+      "sourceName": "@ensdomains/ens-contracts/contracts/registry/ENSRegistry.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ENS.sol"
+      ],
+      "versionPragmas": [
+        ">=0.8.4"
+      ],
+      "artifacts": [
+        "ENSRegistry"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/packages/contracts/node_modules/@ensdomains/ens-contracts/contracts/registry/ENS.sol": {
+      "lastModificationDate": 1666957022704,
+      "contentHash": "bbf48c9206c1f48073dbf3d40024bc94",
+      "sourceName": "@ensdomains/ens-contracts/contracts/registry/ENS.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.8.4"
+      ],
+      "artifacts": [
+        "ENS"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/packages/contracts/contracts/l2/OptimismResolver.sol": {
+      "lastModificationDate": 1666955053473,
+      "contentHash": "ffbd8a4a5c7fcd5b987660d9e0057fd4",
+      "sourceName": "contracts/l2/OptimismResolver.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/access/Ownable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "OptimismResolver"
+      ]
+    },
+    "/Users/makoto/work/ens/op-resolver/packages/contracts/contracts/l2/Test.sol": {
+      "lastModificationDate": 1666955053473,
+      "contentHash": "e962a5740a78f78946e6a4b4881867f6",
+      "sourceName": "contracts/l2/Test.sol",
+      "solcConfig": {
+        "version": "0.8.9",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [],
+      "artifacts": [
+        "Test"
+      ]
+    }
+  }
+}

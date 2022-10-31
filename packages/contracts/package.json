@@ -1,0 +1,30 @@
+{
+  "name": "@ensdomains/op-resolver-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.2.1",
+    "chai": "^4.3.6",
+    "eth-ens-namehash": "^2.0.8",
+    "ethers": "^5.0.25",
+    "hardhat": "^2.12.1",
+    "merkle-patricia-tree": "^4.2.4",
+    "random-bytes-seed": "^1.0.3",
+    "rlp": "^3.0.0"
+  },
+  "dependencies": {
+    "@defi-wonderland/smock": "^2.3.0",
+    "@ensdomains/ens-contracts": "^0.0.13",
+    "@eth-optimism/contracts": "^0.5.37",
+    "@eth-optimism/plugins": "^1.0.0-alpha.3",
+    "@eth-optimism/smock": "^1.1.10",
+    "@nomiclabs/ethereumjs-vm": "^4",
+    "@openzeppelin/contracts": "^4.7.3"
+  }
+}
