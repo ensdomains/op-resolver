@@ -12,7 +12,7 @@
     "@nomiclabs/hardhat-ethers": "^2.2.1",
     "chai": "^4.3.6",
     "eth-ens-namehash": "^2.0.8",
-    "ethers": "^5.0.25",
+    "ethers": "^5.7.2",
     "hardhat": "^2.12.1",
     "merkle-patricia-tree": "^4.2.4",
     "random-bytes-seed": "^1.0.3",

@@ -4,6 +4,7 @@ const { keccak256 } = require('ethers/lib/utils');
 const { smock } = require('@defi-wonderland/smock');
 
 const namehash = require('eth-ens-namehash');
+const testNode = namehash.hash('test.eth');
 
 const {
   DUMMY_BATCH_HEADERS,
@@ -13,7 +14,7 @@ const { TrieTestGenerator } = require('./helpers/trie-test-generator');
 const { toHexString } = require('./helpers/utils');
 
 const RESOLVER_ADDR = "0x0123456789012345678901234567890123456789";
-const GATEWAY = "http://localhost:8080/query/" + RESOLVER_ADDR;
+const GATEWAYS = ["http://localhost:8080/query/" + RESOLVER_ADDR];
 
 const setProxyTarget = async (AddressManager, name, target) => {
   const SimpleProxy = await (
@@ -66,22 +67,35 @@ describe("OptimismResolverStub", function() {
 
   let stub;
   beforeEach(async () => {
-    stub = await Factory__OptimismResolverStub.deploy(addressManager.address, GATEWAY, RESOLVER_ADDR);
+    stub = await Factory__OptimismResolverStub.deploy(addressManager.address, GATEWAYS, RESOLVER_ADDR);
     await stub.deployed();
   });
 
-  it("Should return the gateway and contract address from the constructor", async function() {
+  it("Should return the gateways and contract address from the constructor", async function() {
     expect(await stub.l2resolver()).to.equal(RESOLVER_ADDR);
-    expect(await stub.gateway()).to.equal(GATEWAY);
+    expect(await stub.gateways(0)).to.equal(GATEWAYS[0]);
+  });
+
+  describe('addr', async () => {
+    it.only('returns a CCIP-read error', async () => {
+      try{
+        console.log(stub)
+        console.log(stub.interface.getSighash("addr(bytes32)"))
+//         const fragment = iface.getFunction("balanceOf")
+// iface.getSighash(fragment);
+        await stub.addr(testNode)
+      }catch(e){
+        console.log(e)
+        expect(e.errorName).to.equal('OffchainLookup')
+      }
+    });
   });
 
   describe("addrWithProof", () => {
     let testAddress;
-    let testNode;
     let proof;
     before(async () => {
       testAddress = await account2.getAddress();
-      testNode = namehash.hash('test.eth');
       const storageKey = keccak256(
         testNode + '00'.repeat(31) + '01'
       )

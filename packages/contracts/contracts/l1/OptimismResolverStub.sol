@@ -10,24 +10,39 @@ import {Lib_BytesUtils} from "@eth-optimism/contracts/libraries/utils/Lib_BytesU
 
 import "hardhat/console.sol";
 
+struct L2StateProof {
+    bytes32 stateRoot;
+    Lib_OVMCodec.ChainBatchHeader stateRootBatchHeader;
+    Lib_OVMCodec.ChainInclusionProof stateRootProof;
+    bytes stateTrieWitness;
+    bytes storageTrieWitness;
+}
+
+interface IResolverService {
+    function addr(bytes32 node)
+        external
+        view
+        returns (L2StateProof memory proof);
+}
+
 contract OptimismResolverStub is Lib_AddressResolver {
-    string public gateway;
+    string[] public gateways;
     address public l2resolver;
 
-    struct L2StateProof {
-        bytes32 stateRoot;
-        Lib_OVMCodec.ChainBatchHeader stateRootBatchHeader;
-        Lib_OVMCodec.ChainInclusionProof stateRootProof;
-        bytes stateTrieWitness;
-        bytes storageTrieWitness;
-    }
+    error OffchainLookup(
+        address sender,
+        string[] urls,
+        bytes callData,
+        bytes4 callbackFunction,
+        bytes extraData
+    );
 
     constructor(
         address ovmAddressManager,
-        string memory _gateway,
+        string[] memory _gateways,
         address _l2resolver
     ) Lib_AddressResolver(ovmAddressManager) {
-        gateway = _gateway;
+        gateways = _gateways;
         l2resolver = _l2resolver;
     }
 
@@ -36,17 +51,17 @@ contract OptimismResolverStub is Lib_AddressResolver {
         return l2resolver;
     }
 
-    function addr(bytes32 node)
-        external
-        view
-        returns (bytes memory prefix, string memory url)
-    {
-        return (
-            abi.encodeWithSelector(
-                OptimismResolverStub.addrWithProof.selector,
-                node
-            ),
-            gateway
+    function addr(bytes32 node) public view returns (address) {
+        bytes memory callData = abi.encodeWithSelector(
+            IResolverService.addr.selector,
+            node
+        );
+        revert OffchainLookup(
+            address(this),
+            gateways,
+            callData,
+            OptimismResolverStub.addrWithProof.selector,
+            abi.encode(node)
         );
     }
 
@@ -81,7 +96,7 @@ contract OptimismResolverStub is Lib_AddressResolver {
         address target,
         bytes32 slot,
         L2StateProof memory proof
-    ) internal pure returns (bytes32) {
+    ) internal view returns (bytes32) {
         (
             bool exists,
             bytes memory encodedResolverAccount
