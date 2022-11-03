@@ -20,7 +20,7 @@ $ cd op-resolver/contracts
 $ yarn
 $ yarn hardhat --network optimismLocalhost run scripts/deployL2.js
 $ // take notes the resolver address
-$ RESOLVER_ADDRESS=L2_RESOLVER_ADDRESS yarn hardhat --network localhost run scripts/deployL1.js
+$ RESOLVER_ADDRESS=  yarn hardhat --network localhost run scripts/deployL1.js
 ```
 
 Make note of the ENS registry address logged to the console.
@@ -39,6 +39,11 @@ In a third console window, serve up the demo app:
 $ cd ../client
 $ yarn start --registry L1_REGISTRY_ADDRESS test.test
 ```
+
+## How to deploy to public net (goerli for example)
+
+L1_PROVIDER_URL=L2_PROVIDER_URL L2_PROVIDER_URL=L2_PROVIDER_URL PRIVATE_KEY=PRIVATE_KEY
+hardhat --network goerli run scripts/deployL2.js
 
 ## Components
 
