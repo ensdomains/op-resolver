@@ -20,7 +20,7 @@ $ cd op-resolver/contracts
 $ yarn
 $ yarn hardhat --network optimismLocalhost run scripts/deployL2.js
 $ // take notes the resolver address
-$ RESOLVER_ADDRESS=RESOLVER_ADDRESS yarn hardhat --network localhost run scripts/deployL1.js
+$ RESOLVER_ADDRESS=L2_RESOLVER_ADDRESS yarn hardhat --network localhost run scripts/deployL1.js
 ```
 
 Make note of the ENS registry address logged to the console.
@@ -30,14 +30,15 @@ Now run the gateway service:
 ```
 $ cd ../gateway
 $ yarn
-$ yarn start --l1_provider_url http://localhost:9545 --l2_provider_url http://localhost:8545 --l2_resolver_address 0xa85233C63b9Ee964Add6F2cffe00Fd84eb32338f
+$ yarn start --l1_provider_url http://localhost:9545 --l2_provider_url http://localhost:8545 --l2_resolver_address L2_RESOLVER_ADDRESS
 ```
 
 In a third console window, serve up the demo app:
 
 ```
 $ cd ../client
-$ yarn start --registry 0x59b670e9fA9D0A427751Af201D676719a970857b test.test
+$ yarn start --registry L1_REGISTRY_ADDRESS test.test
+```
 
 ## Components
 
@@ -55,4 +56,7 @@ functions to return the gateway address and required prefix for a query, and to 
 ### [Gateway](gateway)
 
 A node-based gateway server that answers queries for l2 gateway function calls relating to Optimism-based L2 resolvers.
+
+```
+
 ```
