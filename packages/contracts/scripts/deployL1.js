@@ -30,7 +30,7 @@ async function main() {
   rcpt = await tx.wait()
   // Deploy the resolver stub
   const OptimismResolverStub = await ethers.getContractFactory("OptimismResolverStub");
-  const stub = await OptimismResolverStub.deploy(OVM_ADDRESS_MANAGER, ["http://localhost:8081/query"], RESOLVER_ADDRESS);
+  const stub = await OptimismResolverStub.deploy(OVM_ADDRESS_MANAGER, [hre.network.config.gatewayurl], RESOLVER_ADDRESS);
   await stub.deployed();
   console.log(18)
   // Set the stub as the resolver for test.test
@@ -39,9 +39,9 @@ async function main() {
   console.log(19, ens.address)
   console.log(await ens.owner(namehash.hash('test.test')))
   console.log(await ens.resolver(namehash.hash('test.test')))
-  const provider = new ethers.providers.JsonRpcProvider('http://localhost:9545', {
-    chainId: 31337,
-    name: 'unknown',
+  const provider = new ethers.providers.JsonRpcProvider(hre.network.config.url, {
+    chainId: hre.network.config.chainId,
+    name: hre.network.config.name,
     ensAddress:ens.address
   });
   console.log(`OptimismResolverStub deployed at ${stub.address}`);

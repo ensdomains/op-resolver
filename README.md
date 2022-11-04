@@ -42,8 +42,15 @@ $ yarn start --registry L1_REGISTRY_ADDRESS test.test
 
 ## How to deploy to public net (goerli for example)
 
-L1_PROVIDER_URL=L2_PROVIDER_URL L2_PROVIDER_URL=L2_PROVIDER_URL PRIVATE_KEY=PRIVATE_KEY
-hardhat --network goerli run scripts/deployL2.js
+Deploy l2 contract
+
+L1_PROVIDER_URL=L1_PROVIDER_URL L2_PROVIDER_URL=L2_PROVIDER_URL PRIVATE_KEY=PRIVATE_KEY
+npx hardhat --network optimismGoerli run scripts/deployL2.js
+
+Deploy l1 contract
+
+L1_PROVIDER_URL=L1_PROVIDER_URL L2_PROVIDER_URL=L2_PROVIDER_URL PRIVATE_KEY=PRIVATE_KEY
+RESOLVER_ADDRESS=RESOLVER_ADDRESS yarn hardhat --network goerli run scripts/deployL1.js
 
 ## Components
 
