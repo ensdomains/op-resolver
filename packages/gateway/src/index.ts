@@ -1,11 +1,12 @@
 import { Server } from '@chainlink/ccip-read-server';
 import { Command } from 'commander';
-import { readFileSync } from 'fs';
 import { ethers } from 'ethers';
-import { hexConcat, Result } from 'ethers/lib/utils';
+// import fetch from 'node-fetch';
 const optimismSDK = require("@eth-optimism/sdk")
 const StubAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/OptimismResolverStub.json').abi
+const OptimismResolverAbi = require('../../contracts/artifacts/contracts/l2/OptimismResolver.sol/OptimismResolver.json').abi
 const IResolverAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/IResolverService.json').abi
+// const namehash = require('eth-ens-namehash');
 
 const program = new Command();
 program
@@ -19,25 +20,43 @@ console.log({options})
 const {l1_provider_url , l2_provider_url , l2_resolver_address } = options
 const l1_provider = new ethers.providers.JsonRpcProvider(l1_provider_url);
 const l2_provider = new ethers.providers.JsonRpcProvider(l2_provider_url);
+console.log({l1_provider})
+// const l1_metadata = await (await fetch(l1_provider_url)).json()
+// const l2_metadata = await (await fetch(l2_provider_url)).json()
 const server = new Server();
 server.add(IResolverAbi, [
   {
     type: 'addr(bytes32)',
     func: async ([node], {to, data:_callData}) => {
-        console.log('***addr1', {node, to})
+        console.log('***addr1', {node, to, _callData})
         const l1resolverAddress:any = to
         const l2resolverAddress = l2_resolver_address
         const resolver = new ethers.Contract(l1resolverAddress, StubAbi, l1_provider);
+
+        const l2resolver = new ethers.Contract(l2_resolver_address, OptimismResolverAbi, l2_provider);
+        // const l2resolver = new ethers.Contract(l2_resolver_address, OptimismResolverAbi, l2_provider);        
+        // const l2result = await l2resolver.provider.call({
+        //   to: l2_resolver_address,
+        //   data: _callData,
+        // });
+        console.log('**addr102', await l2resolver.addr(node))
+
         // test.test
         const addrSlot = ethers.utils.keccak256(node + '00'.repeat(31) + '01');
         const addressData = await l2_provider.getStorageAt(l2resolverAddress, addrSlot)
         console.log('***addr2',{
             addrSlot,
-            addressData
+            addressData,
+            _callData
         })
+        const l1ChainId = parseInt(await l1_provider.send('eth_chainId', []))
+        const l2ChainId = parseInt(await l2_provider.send('eth_chainId', []))
+        console.log(1, l1ChainId)
+        console.log(2, l2ChainId)
+        
         const crossChainMessenger = new optimismSDK.CrossChainMessenger({
-            l1ChainId: 31337,
-            l2ChainId: 17,
+            l1ChainId,
+            l2ChainId,
             l1SignerOrProvider: l1_provider,
             l2SignerOrProvider: l2_provider
         })
@@ -55,8 +74,8 @@ server.add(IResolverAbi, [
           console.log('***addr311')
           storageProof = await crossChainMessenger.getStorageProof(l2resolverAddress, addrSlot, {
             // l1BlocksAgo: 2000
-            // blockTag:'finalized'
-            blockTag:'latest'
+            blockTag:'finalized'
+            // blockTag:'latest'
           })
           console.log('***addr312', storageProof)
         }catch(e){
@@ -75,28 +94,6 @@ server.add(IResolverAbi, [
           decodedResult = resolver.interface.decodeFunctionResult("addrWithProof", result);
           console.log('***addr7', {decodedResult})
         }catch(eee){
-          ///
-          // ***addr8 {
-          // eee: Error: call revert exception; VM Exception while processing transaction: reverted with reason string "Invalid large internal hash" [ See: https://links.ethers.org/v5-errors-CALL_EXCEPTION ] (method="addrWithProof(bytes32,(bytes32,(uint256,bytes32,uint256,uint256,bytes),(uint256,bytes32[]),bytes,bytes))", data="0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001b496e76616c6964206c6172676520696e7465726e616c20686173680000000000", errorArgs=["Invalid large internal hash"], errorName="Error", errorSignature="Error(string)", reason="Invalid large internal hash", code=CALL_EXCEPTION, version=abi/5.7.0)
-          //     at Logger.makeError (/Users/makoto/work/ens/op-resolver/node_modules/@ethersproject/logger/lib/index.js:238:21)
-          //     at Logger.throwError (/Users/makoto/work/ens/op-resolver/node_modules/@ethersproject/logger/lib/index.js:247:20)
-          //     at Interface.decodeFunctionResult (/Users/makoto/work/ens/op-resolver/node_modules/@ethersproject/abi/lib/interface.js:388:23)
-          //     at _callee$ (/Users/makoto/work/ens/op-resolver/packages/gateway/dist/op-resolver-gateway.cjs.development.js:432:55)
-          //     at tryCatch (/Users/makoto/work/ens/op-resolver/packages/gateway/dist/op-resolver-gateway.cjs.development.js:48:17)
-          //     at Generator.<anonymous> (/Users/makoto/work/ens/op-resolver/packages/gateway/dist/op-resolver-gateway.cjs.development.js:129:22)
-          //     at Generator.next (/Users/makoto/work/ens/op-resolver/packages/gateway/dist/op-resolver-gateway.cjs.development.js:73:21)
-          //     at asyncGeneratorStep (/Users/makoto/work/ens/op-resolver/packages/gateway/dist/op-resolver-gateway.cjs.development.js:315:24)
-          //     at _next (/Users/makoto/work/ens/op-resolver/packages/gateway/dist/op-resolver-gateway.cjs.development.js:334:9)
-          //     at processTicksAndRejections (node:internal/process/task_queues:96:5) {
-          //   reason: 'Invalid large internal hash',
-          //   code: 'CALL_EXCEPTION',
-          //   method: 'addrWithProof(bytes32,(bytes32,(uint256,bytes32,uint256,uint256,bytes),(uint256,bytes32[]),bytes,bytes))',
-          //   data: '0x08c379a00000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000001b496e76616c6964206c6172676520696e7465726e616c20686173680000000000',
-          //   errorArgs: [ 'Invalid large internal hash' ],
-          //   errorName: 'Error',
-          //   errorSignature: 'Error(string)'
-          // }
-          // }
           console.log('***addr8', {eee})
         }
         // test end
@@ -105,5 +102,5 @@ server.add(IResolverAbi, [
     }
   }
 ]);
-const app = server.makeApp('/query/');
+const app = server.makeApp('/');
 app.listen(options.port);
