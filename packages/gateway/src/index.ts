@@ -3,7 +3,7 @@ import { Command } from 'commander';
 import { ethers } from 'ethers';
 // import fetch from 'node-fetch';
 const optimismSDK = require("@eth-optimism/sdk")
-const StubAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/OptimismResolverStub.json').abi
+// const StubAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/OptimismResolverStub.json').abi
 const OptimismResolverAbi = require('../../contracts/artifacts/contracts/l2/OptimismResolver.sol/OptimismResolver.json').abi
 const IResolverAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/IResolverService.json').abi
 // const namehash = require('eth-ens-namehash');
@@ -29,9 +29,9 @@ server.add(IResolverAbi, [
     type: 'addr(bytes32)',
     func: async ([node], {to, data:_callData}) => {
         console.log('***addr1', {node, to, _callData})
-        const l1resolverAddress:any = to
+        // const l1resolverAddress:any = to
         const l2resolverAddress = l2_resolver_address
-        const resolver = new ethers.Contract(l1resolverAddress, StubAbi, l1_provider);
+        // const resolver = new ethers.Contract(l1resolverAddress, StubAbi, l1_provider);
 
         const l2resolver = new ethers.Contract(l2_resolver_address, OptimismResolverAbi, l2_provider);
         // const l2resolver = new ethers.Contract(l2_resolver_address, OptimismResolverAbi, l2_provider);        
@@ -64,12 +64,6 @@ server.add(IResolverAbi, [
           l2resolverAddress, addrSlot
         })
         let storageProof
-        const proof = await l2_provider.send('eth_getProof', [
-          l2resolverAddress,
-          [addrSlot],
-          'latest'
-        ]);
-        console.log('***addr31', proof)
         try{
           console.log('***addr311')
           storageProof = await crossChainMessenger.getStorageProof(l2resolverAddress, addrSlot, {
@@ -82,20 +76,22 @@ server.add(IResolverAbi, [
           console.log('***addr4', e)
         }
         // These are just test to verify on l1 resolver directly from the gateway
-        const data =  resolver.interface.encodeFunctionData('addrWithProof', [node, storageProof])
-        console.log('***addr5', data)
-        const result = await resolver.provider.call({
-            to: l1resolverAddress,
-            data,
-        });
-        console.log('***addr6', result)
-        let decodedResult
-        try{
-          decodedResult = resolver.interface.decodeFunctionResult("addrWithProof", result);
-          console.log('***addr7', {decodedResult})
-        }catch(eee){
-          console.log('***addr8', {eee})
-        }
+
+        // const data =  resolver.interface.encodeFunctionData('addrWithProof', [node, storageProof])
+        // console.log('***addr5', data)
+        // const result = await resolver.provider.call({
+        //     to: l1resolverAddress,
+        //     data,
+        // });
+        // console.log('***addr6', result)
+        // let decodedResult
+        // try{
+        //   decodedResult = resolver.interface.decodeFunctionResult("addrWithProof", result);
+        //   console.log('***addr7', {decodedResult})
+        // }catch(eee){
+        //   console.log('***addr8', {eee})
+        // }
+
         // test end
 
         return [storageProof]
