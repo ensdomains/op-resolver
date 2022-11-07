@@ -60,19 +60,21 @@ const l2provider = new ethers.providers.JsonRpcProvider(options.l2_provider_url)
         const {sender, urls, callData, callbackFunction, extraData } = e.errorArgs
         console.log(16,{sender, urls, callData, callbackFunction, extraData})
         const url = urls[0].replace(/{sender}/, sender).replace(/{data}/, callData)
-        console.log(17, {url})
         const responseData:any = await (await fetch(url)).json()
+        // const storageProof = iresolver.interface.decodeFunctionResult("addr", responseData.data);
+        // const data =  resolver.interface.encodeFunctionData('addrWithProof', [node, storageProof])
+
         if(responseData){
           console.log(18, {node, responseData})
-          const storageProof = iresolver.interface.decodeFunctionResult("addr", responseData.data);
-          console.log(181, storageProof)
+          const storageProofs = iresolver.interface.decodeFunctionResult("addr", responseData.data);
+          console.log(181, storageProofs)
           const string = 'addrWithProof(bytes32,(bytes32,(uint256,bytes32,uint256,uint256,bytes),(uint256,bytes32[]),bytes,bytes))'  
           try{
             // const result = await resolver.callStatic[string](node, storageProof)
             // console.log('1811', result)
             // alternative way to call the function
             console.log('1811')
-            const data =  resolver.interface.encodeFunctionData('addrWithProof', [node, storageProof])
+            const data =  resolver.interface.encodeFunctionData('addrWithProof', [node, storageProofs[0]])
             console.log('1812', {data})
             const result = await resolver.provider.call({
               to: resolver.address,
