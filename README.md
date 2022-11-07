@@ -52,6 +52,10 @@ Deploy l1 contract
 L1_PROVIDER_URL=L1_PROVIDER_URL L2_PROVIDER_URL=L2_PROVIDER_URL PRIVATE_KEY=PRIVATE_KEY
 RESOLVER_ADDRESS=RESOLVER_ADDRESS yarn hardhat --network goerli run scripts/deployL1.js
 
+Verify l1 contract
+
+RESOLVER_ADDRESS= L1_PROVIDER_URL= ETHERSCAN_API_KEY= npx hardhat verify --network goerli --constructor-args scripts/arguments.js CONTRACT_ADDRESS
+
 ## Components
 
 ### [Client](client)
