@@ -1,8 +1,13 @@
 const hre = require("hardhat");
 const {ethers} = hre;
 const namehash = require('eth-ens-namehash');
-
-const TEST_NODE = namehash.hash('test.test');
+let TEST_NODE, TEST_NAME
+if(process.env.TEST_NAME){
+  TEST_NAME = process.env.TEST_NAME
+  TEST_NODE = namehash.hash(TEST_NAME);
+}else{
+  throw('Set TEST_NAME=')
+}
 
 async function main() {
   /************************************
@@ -15,6 +20,10 @@ async function main() {
   await resolver.deployed();
   console.log(`OptimismResolver deployed to ${resolver.address}`);
   await (await resolver.functions.setAddr(TEST_NODE, l2accounts[0].address)).wait();
+  console.log({
+    TEST_NAME,
+    TEST_NODE
+  })
   console.log('Address set to', await resolver.addr(TEST_NODE));
   
   /************************************
