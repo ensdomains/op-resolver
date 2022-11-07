@@ -1,5 +1,7 @@
 require("@nomiclabs/hardhat-ethers");
 require('@eth-optimism/plugins/hardhat/compiler');
+require("@nomiclabs/hardhat-etherscan");
+
 const localGateway = 'http://localhost:8080/{sender}/{data}.json'
 module.exports = {
   networks: {
