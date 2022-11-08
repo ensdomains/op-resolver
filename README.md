@@ -56,6 +56,12 @@ Verify l1 contract
 
 RESOLVER_ADDRESS= L1_PROVIDER_URL= ETHERSCAN_API_KEY= npx hardhat verify --network goerli --constructor-args scripts/arguments.js CONTRACT_ADDRESS
 
+## Deployed contracts
+
+- op goerli resolver = 0xe5c13c18a417859576a7FB42eBb427d0B1FBcb03
+- goerli (gateway points to 'http://localhost:8080/{sender}/{data}.json') = [0x87ef1EAdaBCCCcDd4239187891Ef2C580eC1c478](https://goerli.etherscan.io/address/0x87ef1EAdaBCCCcDd4239187891Ef2C580eC1c478)
+- goerli (gateway points to 'https://op-resolver-example.uc.r.appspot.com/{sender}/{data}.json' ) = [0xcEa2B715C3Ed075B60EdCcFAc8fb57D313fC7D9D](https://goerli.etherscan.io/address/0xcEa2B715C3Ed075B60EdCcFAc8fb57D313fC7D9D)
+
 ## Components
 
 ### [Client](client)
