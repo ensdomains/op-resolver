@@ -65,10 +65,10 @@ server.add(IResolverAbi, [
         })
         let storageProof
         try{
-          console.log('***addr311')
+          console.log('***addr3111')
           storageProof = await crossChainMessenger.getStorageProof(l2resolverAddress, addrSlot, {
-            // l1BlocksAgo: 2000
-            blockTag:'finalized'
+            l1BlocksAgo: 2000
+            // blockTag:'finalized'
             // blockTag:'latest'
           })
           console.log('***addr312', storageProof)

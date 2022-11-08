@@ -49,7 +49,12 @@ const l2provider = new ethers.providers.JsonRpcProvider(options.l2_provider_url)
     const iresolver = new ethers.Contract(r.address, IResolverAbi, provider);
     try{
       console.log('14')
+      const beforeTime = (new Date()).getTime()
       console.log('141', await r.getAddress());
+      const afterTime = (new Date()).getTime()
+      console.log('*** before calling getStorageProof', afterTime)
+      console.log('*** Time took', afterTime - beforeTime)
+
       console.log(await resolver.callStatic['addr(bytes32)'](node, { ccipReadEnabled:true }))
       console.log('143', await provider.resolveName(name));
     }catch(e){
@@ -70,6 +75,7 @@ const l2provider = new ethers.providers.JsonRpcProvider(options.l2_provider_url)
           const string = 'addrWithProof(bytes32,(bytes32,(uint256,bytes32,uint256,uint256,bytes),(uint256,bytes32[]),bytes,bytes))'  
           try{
             console.log('1811')
+        
             const data =  resolver.interface.encodeFunctionData('addrWithProof', [node, storageProofs[0]])
             console.log('1812', {data})
             const result = await resolver.provider.call({
