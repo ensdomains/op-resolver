@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 // import fetch from 'node-fetch';
 const optimismSDK = require("@eth-optimism/sdk")
 // const StubAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/OptimismResolverStub.json').abi
-const OptimismResolverAbi = require('../../contracts/artifacts/contracts/l2/OptimismResolver.sol/OptimismResolver.json').abi
+// const OptimismResolverAbi = require('../../contracts/artifacts/contracts/l2/OptimismResolver.sol/OptimismResolver.json').abi
 const IResolverAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/IResolverService.json').abi
 // const namehash = require('eth-ens-namehash');
 
@@ -33,22 +33,16 @@ server.add(IResolverAbi, [
         const l2resolverAddress = l2_resolver_address
         // const resolver = new ethers.Contract(l1resolverAddress, StubAbi, l1_provider);
 
-        const l2resolver = new ethers.Contract(l2_resolver_address, OptimismResolverAbi, l2_provider);
-        // const l2resolver = new ethers.Contract(l2_resolver_address, OptimismResolverAbi, l2_provider);        
-        // const l2result = await l2resolver.provider.call({
-        //   to: l2_resolver_address,
-        //   data: _callData,
-        // });
-        console.log('**addr102', await l2resolver.addr(node))
+        // const l2resolver = new ethers.Contract(l2_resolver_address, OptimismResolverAbi, l2_provider);
+        // console.log('**addr102', await l2resolver.addr(node))
 
-        // test.test
         const addrSlot = ethers.utils.keccak256(node + '00'.repeat(31) + '01');
-        const addressData = await l2_provider.getStorageAt(l2resolverAddress, addrSlot)
-        console.log('***addr2',{
-            addrSlot,
-            addressData,
-            _callData
-        })
+        // const addressData = await l2_provider.getStorageAt(l2resolverAddress, addrSlot)
+        // console.log('***addr2',{
+        //     addrSlot,
+        //     addressData,
+        //     _callData
+        // })
         const l1ChainId = parseInt(await l1_provider.send('eth_chainId', []))
         const l2ChainId = parseInt(await l2_provider.send('eth_chainId', []))
         console.log(1, l1ChainId)
