@@ -1,5 +1,6 @@
 *node_modules
 packages/contracts/artifacts*
 packages/contracts/cache*
-gateway/build/*
+packages/gateway/build/*
+packages/gateway/secret.yaml
 *dist*

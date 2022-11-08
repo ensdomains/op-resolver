@@ -1,0 +1,7 @@
+runtime: nodejs16
+entrypoint: 'node dist/index.js --l1_provider_url $L1_PROVIDER_URL  --port $PORT  --l2_provider_url $L2_PROVIDER_URL --l2_resolver_address $L2_RESOLVER_ADDRESS'
+env_variables:
+  PORT: 8080
+  L2_RESOLVER_ADDRESS: '0xe5c13c18a417859576a7FB42eBb427d0B1FBcb03'
+includes:
+  - secret.yaml
