@@ -65,11 +65,13 @@ contract OptimismResolverStub is Lib_AddressResolver {
         );
     }
 
-    function addrWithProof(bytes32 node, L2StateProof memory proof)
+    function addrWithProof(bytes calldata response, bytes calldata extraData)
         external
         view
         returns (address)
     {
+        L2StateProof memory proof = abi.decode(response, (L2StateProof));
+        bytes32 node = abi.decode(extraData, (bytes32));
         require(verifyStateRootProof(proof), "Invalid state root");
         bytes32 slot = keccak256(abi.encodePacked(node, uint256(1)));
         bytes32 value = getStorageValue(l2resolver, slot, proof);

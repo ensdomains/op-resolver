@@ -27,7 +27,7 @@ const provider = new ethers.providers.JsonRpcProvider(options.l1_provider_url
 //   ensAddress
 // }
 );
-provider.on("debug", console.log)
+// provider.on("debug", console.log)
 const l2provider = new ethers.providers.JsonRpcProvider(options.l2_provider_url);
 
 (async () => {
@@ -49,21 +49,19 @@ const l2provider = new ethers.providers.JsonRpcProvider(options.l2_provider_url)
     const iresolver = new ethers.Contract(r.address, IResolverAbi, provider);
     try{
       console.log('14')
+      console.log('141', await r.getAddress());
       console.log(await resolver.callStatic['addr(bytes32)'](node, { ccipReadEnabled:true }))
-      
-      // When all works, these should return an address
-      // console.log('142', await r.getAddress());
-      // console.log('143', await provider.resolveName(name));
+      console.log('143', await provider.resolveName(name));
     }catch(e){
       // Manually calling the gateway
-      console.log('15', e.errorArgs)
+      console.log('15', e)
       if(e.errorArgs){
         const {sender, urls, callData, callbackFunction, extraData } = e.errorArgs
         console.log(16,{sender, urls, callData, callbackFunction, extraData})
         const url = urls[0].replace(/{sender}/, sender).replace(/{data}/, callData)
         const responseData:any = await (await fetch(url)).json()
-        // const storageProof = iresolver.interface.decodeFunctionResult("addr", responseData.data);
-        // const data =  resolver.interface.encodeFunctionData('addrWithProof', [node, storageProof])
+        const storageProof = iresolver.interface.decodeFunctionResult("addr", responseData.data);
+        const data =  resolver.interface.encodeFunctionData('addrWithProof', [node, storageProof])
 
         if(responseData){
           console.log(18, {node, responseData})
