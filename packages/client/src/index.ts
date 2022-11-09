@@ -49,13 +49,19 @@ const l2provider = new ethers.providers.JsonRpcProvider(options.l2_provider_url)
     const iresolver = new ethers.Contract(r.address, IResolverAbi, provider);
     try{
       console.log('14')
-      const beforeTime = (new Date()).getTime()
-      console.log('141', await r.getAddress());
-      const afterTime = (new Date()).getTime()
-      console.log('*** before calling getStorageProof', afterTime)
-      console.log('*** Time took', afterTime - beforeTime)
-
-      console.log(await resolver.callStatic['addr(bytes32)'](node, { ccipReadEnabled:true }))
+      // const beforeTime = (new Date()).getTime()
+      // console.log('141', await r.getAddress());
+      // const afterTime = (new Date()).getTime()
+      // console.log('*** before calling getStorageProof', afterTime)
+      // console.log('*** Time took', afterTime - beforeTime)
+      // let r = await provider.getResolver('opresolver.eth');
+      console.log('1401', await r.getAddress());
+      console.log('1402', await r.getAddress(60));
+      console.log('1403', await r._fetchBytes('0xf1cb7e06', '0x000000000000000000000000000000000000000000000000000000000000003c'))
+      console.log('141', await resolver.callStatic['addr(bytes32)'](node, { ccipReadEnabled:true }))
+      console.log('142', await resolver.callStatic['addr(bytes32,uint256)'](node, 60, { ccipReadEnabled:true }))
+      
+      // console.log(await resolver.callStatic['addr(bytes32)'](node))
       console.log('143', await provider.resolveName(name));
     }catch(e){
       // Manually calling the gateway
@@ -64,6 +70,7 @@ const l2provider = new ethers.providers.JsonRpcProvider(options.l2_provider_url)
         const {sender, urls, callData, callbackFunction, extraData } = e.errorArgs
         console.log(16,{sender, urls, callData, callbackFunction, extraData})
         const url = urls[0].replace(/{sender}/, sender).replace(/{data}/, callData)
+        console.log({url})
         const responseData:any = await (await fetch(url)).json()
         const storageProof = iresolver.interface.decodeFunctionResult("addr", responseData.data);
         const data =  resolver.interface.encodeFunctionData('addrWithProof', [node, storageProof])

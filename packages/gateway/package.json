@@ -13,9 +13,10 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsdx build",
+    "gcp-build": "tsdx build",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build",
+    "prepare": "NODE_ENV=development tsdx build",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "clean": "rm -fr node_modules dist"
@@ -61,6 +62,7 @@
     "@chainlink/ccip-read-server": "^0.2.1",
     "@defi-wonderland/smock": "^2.3.0",
     "@ensdomains/ens-contracts": "^0.0.13",
+    "@ensdomains/op-resolver-contracts": "^0.0.1",
     "@eth-optimism/contracts": "^0.5.37",
     "@eth-optimism/plugins": "^1.0.0-alpha.3",
     "@eth-optimism/sdk": "0.0.0-2022927214235",

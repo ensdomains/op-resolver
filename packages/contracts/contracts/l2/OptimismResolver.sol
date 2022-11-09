@@ -16,4 +16,8 @@ contract OptimismResolver is Ownable {
     function addr(bytes32 node) public view returns (address) {
         return addresses[node];
     }
+
+    function addr(bytes32 node, uint256) public view returns (address) {
+        return addresses[node];
+    }
 }

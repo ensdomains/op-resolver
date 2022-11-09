@@ -24,7 +24,7 @@ async function main() {
     TEST_NAME,
     TEST_NODE
   })
-  console.log('Address set to', await resolver.addr(TEST_NODE));
+  console.log('Address set to', await resolver['addr(bytes32)'](TEST_NODE));
   
   /************************************
    * L1 deploy

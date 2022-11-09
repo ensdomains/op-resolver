@@ -52,6 +52,22 @@ contract OptimismResolverStub is Lib_AddressResolver {
     }
 
     function addr(bytes32 node) public view returns (address) {
+        return _addr(node);
+    }
+
+    function addr(bytes32 node, uint256 coinType)
+        public
+        view
+        returns (address)
+    {
+        if (coinType == 60) {
+            return _addr(node);
+        } else {
+            return address(0);
+        }
+    }
+
+    function _addr(bytes32 node) private view returns (address) {
         bytes memory callData = abi.encodeWithSelector(
             IResolverService.addr.selector,
             node

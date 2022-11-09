@@ -28,7 +28,7 @@ module.exports = {
       url: process.env.L1_PROVIDER_URL || 'http://localhost:9545',
       accounts: [process.env.PRIVATE_KEY || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80' ],
       chainId: 5,
-      gatewayurl:localGateway,
+      gatewayurl:'https://op-resolver-example.uc.r.appspot.com/{sender}/{data}.json',
     },
     optimismGoerli: {
       url: process.env.L2_PROVIDER_URL || 'http://localhost:8545',

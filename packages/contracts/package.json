@@ -1,10 +1,12 @@
 {
   "name": "@ensdomains/op-resolver-contracts",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "hardhat test"
+    "test": "hardhat test",
+    "prepublishOnly": "yarn build",
+    "build": "npx hardhat compile"
   },
   "author": "",
   "license": "ISC",
