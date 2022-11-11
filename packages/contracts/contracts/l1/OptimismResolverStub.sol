@@ -52,22 +52,32 @@ contract OptimismResolverStub is Lib_AddressResolver {
     }
 
     function addr(bytes32 node) public view returns (address) {
-        return _addr(node);
+        return _addr(node, OptimismResolverStub.addrWithProof.selector);
     }
 
     function addr(bytes32 node, uint256 coinType)
         public
         view
-        returns (address)
+        returns (bytes memory)
     {
         if (coinType == 60) {
-            return _addr(node);
+            return
+                addressToBytes(
+                    _addr(
+                        node,
+                        OptimismResolverStub.bytesAddrWithProof.selector
+                    )
+                );
         } else {
-            return address(0);
+            return addressToBytes(address(0));
         }
     }
 
-    function _addr(bytes32 node) private view returns (address) {
+    function _addr(bytes32 node, bytes4 selector)
+        private
+        view
+        returns (address)
+    {
         bytes memory callData = abi.encodeWithSelector(
             IResolverService.addr.selector,
             node
@@ -76,13 +86,28 @@ contract OptimismResolverStub is Lib_AddressResolver {
             address(this),
             gateways,
             callData,
-            OptimismResolverStub.addrWithProof.selector,
+            selector,
             abi.encode(node)
         );
     }
 
     function addrWithProof(bytes calldata response, bytes calldata extraData)
         external
+        view
+        returns (address)
+    {
+        return _addrWithProof(response, extraData);
+    }
+
+    function bytesAddrWithProof(
+        bytes calldata response,
+        bytes calldata extraData
+    ) external view returns (bytes memory) {
+        return addressToBytes(_addrWithProof(response, extraData));
+    }
+
+    function _addrWithProof(bytes calldata response, bytes calldata extraData)
+        internal
         view
         returns (address)
     {
@@ -153,5 +178,12 @@ contract OptimismResolverStub is Lib_AddressResolver {
             ret := shr(mul(sub(32, len), 8), mload(add(_bytes, 32)))
         }
         return ret;
+    }
+
+    function addressToBytes(address a) internal pure returns (bytes memory b) {
+        b = new bytes(20);
+        assembly {
+            mstore(add(b, 32), mul(a, exp(256, 12)))
+        }
     }
 }

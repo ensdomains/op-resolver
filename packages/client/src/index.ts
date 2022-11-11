@@ -55,11 +55,11 @@ const l2provider = new ethers.providers.JsonRpcProvider(options.l2_provider_url)
       // console.log('*** before calling getStorageProof', afterTime)
       // console.log('*** Time took', afterTime - beforeTime)
       // let r = await provider.getResolver('opresolver.eth');
-      console.log('1401', await r.getAddress());
+      // console.log('1401', await r.getAddress());
       console.log('1402', await r.getAddress(60));
       console.log('1403', await r._fetchBytes('0xf1cb7e06', '0x000000000000000000000000000000000000000000000000000000000000003c'))
-      console.log('141', await resolver.callStatic['addr(bytes32)'](node, { ccipReadEnabled:true }))
-      console.log('142', await resolver.callStatic['addr(bytes32,uint256)'](node, 60, { ccipReadEnabled:true }))
+      // console.log('141', await resolver.callStatic['addr(bytes32)'](node, { ccipReadEnabled:true }))
+      // console.log('142', await resolver.callStatic['addr(bytes32,uint256)'](node, 60, { ccipReadEnabled:true }))
       
       // console.log(await resolver.callStatic['addr(bytes32)'](node))
       console.log('143', await provider.resolveName(name));
