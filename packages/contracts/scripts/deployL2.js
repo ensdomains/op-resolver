@@ -1,13 +1,18 @@
 const hre = require("hardhat");
 const {ethers} = hre;
 const namehash = require('eth-ens-namehash');
-let TEST_NODE, TEST_NAME
+let TEST_NAME
 if(process.env.TEST_NAME){
   TEST_NAME = process.env.TEST_NAME
-  TEST_NODE = namehash.hash(TEST_NAME);
 }else{
-  throw('Set TEST_NAME=')
+  console.log(hre.network.name)
+  if(hre.network.name === 'optimismLocalhost'){
+    TEST_NAME = 'test.test'
+  } else {
+    throw('Set TEST_NAME=')
+  }
 }
+const TEST_NODE = namehash.hash(TEST_NAME);
 
 async function main() {
   /************************************
