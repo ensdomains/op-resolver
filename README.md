@@ -62,7 +62,7 @@ RESOLVER_ADDRESS= L1_PROVIDER_URL= ETHERSCAN_API_KEY= npx hardhat verify --netwo
 
 - op goerli resolver = 0x470B48eE90Cec0eb6834B986fEA4F3698C986AC4
 - goerli (gateway points to 'https://op-resolver-example.uc.r.appspot.com/{sender}/{data}.json' ) = [0x0AF7BfB9bC54E4ca0D48C30d6c0396B919c5abd7](https://goerli.etherscan.io/address/0x0AF7BfB9bC54E4ca0D48C30d6c0396B919c5abd7)
-- test domain = [opresolver.eth](https://app.ens.domains/name/opresolver.eth/details)
+- goerli test domain = [opresolver.eth](https://app.ens.domains/name/opresolver.eth/details)
 
 ## Deploy gateway
 
