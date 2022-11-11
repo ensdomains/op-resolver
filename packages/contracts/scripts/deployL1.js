@@ -4,11 +4,19 @@ const namehash = require('eth-ens-namehash');
 const abi = require('../artifacts/@ensdomains/ens-contracts/contracts/registry/ENSRegistry.sol/ENSRegistry.json').abi
 const ResolverAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/OptimismResolverStub.json').abi
 const CONSTANTS = require('./constants')
+require('isomorphic-fetch');
 
 let RESOLVER_ADDRESS
 async function main() {
-  console.log(1)
-  let OVM_ADDRESS_MANAGER = CONSTANTS.OVM_ADDRESS_MANAGERS[hre.network.name]
+  console.log(1, hre.network, CONSTANTS.OVM_ADDRESS_MANAGERS)
+  let OVM_ADDRESS_MANAGER
+  if(hre.network.name == 'localhost'){
+    const metadata = await (await fetch('http://localhost:8080/addresses.json')).json()
+    console.log(metadata)    
+    OVM_ADDRESS_MANAGER = metadata.AddressManager
+  }else{
+    OVM_ADDRESS_MANAGER = CONSTANTS.OVM_ADDRESS_MANAGERS[hre.network.name]
+  }
   if(process.env.RESOLVER_ADDRESS){
     RESOLVER_ADDRESS = process.env.RESOLVER_ADDRESS
   }else{
@@ -20,8 +28,11 @@ async function main() {
   const accounts = await ethers.getSigners();
 
   // Deploy the resolver stub
+  console.log(2)
   const OptimismResolverStub = await ethers.getContractFactory("OptimismResolverStub");
+  console.log(3, OVM_ADDRESS_MANAGER, [hre.network.config.gatewayurl], RESOLVER_ADDRESS)
   const stub = await OptimismResolverStub.deploy(OVM_ADDRESS_MANAGER, [hre.network.config.gatewayurl], RESOLVER_ADDRESS);
+  console.log(4)
   await stub.deployed();
   console.log(`OptimismResolverStub deployed at ${stub.address}`);
 
@@ -44,9 +55,10 @@ async function main() {
     console.log(19, ens.address)
     console.log(await ens.owner(namehash.hash('test.test')))
     console.log(await ens.resolver(namehash.hash('test.test')))  
+    console.log(hre.network.config, ens.address)
     provider = new ethers.providers.JsonRpcProvider(hre.network.config.url, {
       chainId: hre.network.config.chainId,
-      name: hre.network.config.name,
+      name: 'unknown',
       ensAddress:ens.address
     });  
     const ens2 = new ethers.Contract(ens.address, abi, provider);

@@ -2,7 +2,7 @@ require("@nomiclabs/hardhat-ethers");
 require('@eth-optimism/plugins/hardhat/compiler');
 require("@nomiclabs/hardhat-etherscan");
 
-const localGateway = 'http://localhost:8080/{sender}/{data}.json'
+const localGateway = 'http://localhost:8081/{sender}/{data}.json'
 module.exports = {
   networks: {
     hardhat: {
@@ -13,6 +13,7 @@ module.exports = {
     localhost: {
       // throwOnCallFailures: false,
       url: 'http://localhost:9545',
+      chainId: 31337,
       accounts: {
         mnemonic: "test test test test test test test test test test test junk"
       },

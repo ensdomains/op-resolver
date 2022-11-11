@@ -11,10 +11,10 @@ const IResolverAbi = require('@ensdomains/op-resolver-contracts/artifacts/contra
 
 const program = new Command();
 program
-  .option('-l1 --l1_provider_url <url1>', 'L1_PROVIDER_URL')
-  .option('-l2 --l2_provider_url <url2>', 'L2_PROVIDER_URL')
-  .option('-l1 --l1_chain_id <chain1>', 'L1_CHAIN_ID')
-  .option('-l1 --l2_chain_id <chain2>', 'L2_CHAIN_ID')
+  .option('-l1 --l1_provider_url <url1>', 'L1_PROVIDER_URL', 'http://localhost:9545')
+  .option('-l2 --l2_provider_url <url2>', 'L2_PROVIDER_URL', 'http://localhost:8545')
+  .option('-l1 --l1_chain_id <chain1>', 'L1_CHAIN_ID', '31337')
+  .option('-l1 --l2_chain_id <chain2>', 'L2_CHAIN_ID', '17')
   .option('-r --l2_resolver_address <address>', 'L2_PROVIDER_URL')
   .option('-p --port <number>', 'Port number to serve on', '8081');
 program.parse(process.argv);
@@ -24,8 +24,6 @@ const {l1_provider_url , l2_provider_url , l2_resolver_address, l1_chain_id, l2_
 const l1_provider = new ethers.providers.JsonRpcProvider(l1_provider_url);
 const l2_provider = new ethers.providers.JsonRpcProvider(l2_provider_url);
 console.log({l1_provider})
-// const l1_metadata = await (await fetch(l1_provider_url)).json()
-// const l2_metadata = await (await fetch(l2_provider_url)).json()
 const server = new Server();
 server.add(IResolverAbi, [
   {
@@ -35,7 +33,7 @@ server.add(IResolverAbi, [
         // const l1resolverAddress:any = to
         const l2resolverAddress = l2_resolver_address
         // const resolver = new ethers.Contract(l1resolverAddress, StubAbi, l1_provider);
-
+        
         // const l2resolver = new ethers.Contract(l2_resolver_address, OptimismResolverAbi, l2_provider);
         // console.log('**addr102', await l2resolver.addr(node))
 

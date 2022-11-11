@@ -37,30 +37,30 @@ In a third console window, serve up the demo app:
 
 ```
 $ cd ../client
-$ yarn start --registry L1_REGISTRY_ADDRESS test.test
+$ yarn start --registry L1_REGISTRY_ADDRESS test.test --l1_provider_url http://localhost:9545
 ```
 
 ## How to deploy to public net (goerli for example)
 
-Deploy l2 contract
+### Deploy l2 contract
 
 L1_PROVIDER_URL=L1_PROVIDER_URL L2_PROVIDER_URL=L2_PROVIDER_URL PRIVATE_KEY=PRIVATE_KEY
 npx hardhat --network optimismGoerli run scripts/deployL2.js
 
-Deploy l1 contract
+### Deploy l1 contract
 
 L1_PROVIDER_URL=L1_PROVIDER_URL L2_PROVIDER_URL=L2_PROVIDER_URL PRIVATE_KEY=PRIVATE_KEY
 RESOLVER_ADDRESS=RESOLVER_ADDRESS yarn hardhat --network goerli run scripts/deployL1.js
 
-Verify l1 contract
+### Verify l1 contract
 
 RESOLVER_ADDRESS= L1_PROVIDER_URL= ETHERSCAN_API_KEY= npx hardhat verify --network goerli --constructor-args scripts/arguments.js CONTRACT_ADDRESS
 
 ## Deployed contracts
 
 - op goerli resolver = 0x470B48eE90Cec0eb6834B986fEA4F3698C986AC4
-- goerli (gateway points to 'http://localhost:8080/{sender}/{data}.json') = [0x87ef1EAdaBCCCcDd4239187891Ef2C580eC1c478](https://goerli.etherscan.io/address/0x87ef1EAdaBCCCcDd4239187891Ef2C580eC1c478)
-- goerli (gateway points to 'https://op-resolver-example.uc.r.appspot.com/{sender}/{data}.json' ) = [0x677ACE6c651f02B08f854CBe8CA8ef3666FAC419](https://goerli.etherscan.io/address/0x677ACE6c651f02B08f854CBe8CA8ef3666FAC419)
+- goerli (gateway points to 'https://op-resolver-example.uc.r.appspot.com/{sender}/{data}.json' ) = [0x0AF7BfB9bC54E4ca0D48C30d6c0396B919c5abd7](https://goerli.etherscan.io/address/0x0AF7BfB9bC54E4ca0D48C30d6c0396B919c5abd7)
+- test domain = [opresolver.eth](https://app.ens.domains/name/opresolver.eth/details)
 
 ## Components
 

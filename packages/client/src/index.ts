@@ -105,25 +105,25 @@ function encodeBytes(datas:any) {
       console.log('error', e)
       if(e.errorArgs){
         const {sender, urls, callData, callbackFunction, extraData } = e.errorArgs
-        console.log({sender, urls, callData, callbackFunction, extraData})
+        console.log(1, {sender, urls, callData, callbackFunction, extraData})
         const url = urls[0].replace(/{sender}/, sender).replace(/{data}/, callData)
-        console.log({url})
+        console.log(2, {url})
         const fetched = await fetch(url)
         const responseData:any = await (fetched).json()
         if(responseData){
           try{
             const data = hexConcat([ callbackFunction, encodeBytes([ responseData.data, extraData ]) ])
-            console.log({data})
+            console.log(3, {data})
             const result = await resolver.provider.call({
               to: resolver.address,
               data
             });
-            console.log({result})
+            console.log(4, {result})
             const decodedResult = resolver.interface.decodeFunctionResult("addrWithProof", result);
-            console.log({decodedResult})
+            console.log(5, {decodedResult})
   
           }catch(ee){
-            console.log({ee})
+            console.log(6, {ee})
           }  
         }
       }
