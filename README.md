@@ -66,10 +66,14 @@ RESOLVER_ADDRESS= L1_PROVIDER_URL= ETHERSCAN_API_KEY= npx hardhat verify --netwo
 
 ## Deploy gateway
 
+Create secret.yaml and update credentials
+
 ```
 cd gateway
 cp secret.yaml.org secret.yaml
 ```
+
+Deploy to app engine
 
 ```
 gcloud app deploy goeril.app.yml
