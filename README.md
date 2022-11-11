@@ -40,6 +40,8 @@ $ cd ../client
 $ yarn start --registry L1_REGISTRY_ADDRESS test.test --l1_provider_url http://localhost:9545
 ```
 
+If you want to see extra debugging info, pass `--debug` option to both command
+
 ## How to deploy to public net (goerli for example)
 
 ### Deploy l2 contract
@@ -78,7 +80,3 @@ functions to return the gateway address and required prefix for a query, and to 
 ### [Gateway](gateway)
 
 A node-based gateway server that answers queries for l2 gateway function calls relating to Optimism-based L2 resolvers.
-
-```
-
-```
