@@ -1,5 +1,13 @@
 # Optimism Resolver
 
+This repository contains smart contracts and a node.js gateway server that together allow storing ENS names on Optimism using EIP 3668 and ENSIP 10.
+
+## Overview
+
+ENS resolution requests to the resolver implemented in this repository are responded to with a directive to query a gateway server for the answer. The gateway server calls `crossChainMessenger.getStorageProof(l2resolverAddress, addrSlot, storageOption)` to fetch the storage proof from Optimism, which is sent back to the original resolver for decoding and verification. Full details of this request flow can be found in EIP 3668.
+
+Unlike [Offchain Resolver](https://github.com/ensdomains/offchain-resolver) that requires a trust assumption of gateway signing the response to attest the authenticity of the response data, Optimism resolver validates the cryptographic proof that the given storage was included in the part of the Optimism state. For more information about the overall architecture, please refer to [the blog post](https://medium.com/the-ethereum-name-service/mvp-of-ens-on-l2-with-optimism-demo-video-how-to-try-it-yourself-b44c390cbd67).
+
 ## Usage
 
 In a terminal window, download, build, and run Optimism repository. Read [here](https://community.optimism.io/docs/developers/build/dev-node/#setting-up-the-environment) for more detail
@@ -41,6 +49,15 @@ $ yarn start --registry L1_REGISTRY_ADDRESS test.test --l1_provider_url http://l
 ```
 
 If you want to see extra debugging info, pass `--debug` option to both command
+
+## Notes on Gateway
+
+Due to the "Optimistic" nature of the rollup, the state is only finalised after 7 days.
+You can specify `-v` option to either be `latest`, `finalized`, or the default.
+
+- `latest` returns the state proof that was published into L1 (~20 minutes)
+- `finalized` return the proof that passed the challenge period (1 week)
+- The default sets sets `{l1BlocksAgo: 2000}` option when quering the proof from Optimism to wait for 2000 blocks (a few hours)
 
 ## How to deploy to public net (goerli for example)
 
