@@ -12,6 +12,6 @@ describe("OptimismResolver", function() {
     await resolver.deployed();
 
     await resolver.setAddr(NODE, address);
-    expect(await resolver.addr(NODE)).to.equal(address);
+    expect(await resolver['addr(bytes32)'](NODE)).to.equal(address);
   });
 });

@@ -5,7 +5,8 @@ const { smock } = require('@defi-wonderland/smock');
 
 const namehash = require('eth-ens-namehash');
 const testNode = namehash.hash('test.eth');
-
+const { defaultAbiCoder, hexConcat, Interface } = require("ethers/lib/utils");
+const IResolverAbi = require('../../artifacts/contracts/l1/OptimismResolverStub.sol/IResolverService.json').abi
 const {
   DUMMY_BATCH_HEADERS,
   DUMMY_BATCH_PROOFS,
@@ -27,7 +28,7 @@ const setProxyTarget = async (AddressManager, name, target) => {
 const makeAddressManager = async () => {
   return (await ethers.getContractFactory('Lib_AddressManager')).deploy()
 }
-
+const proofInterface = new Interface(IResolverAbi)
 describe("OptimismResolverStub", function() {
   let signer;
   let account2;
@@ -65,9 +66,11 @@ describe("OptimismResolverStub", function() {
     );
   });
 
-  let stub;
+  let stub, callbackFunction;
   beforeEach(async () => {
     stub = await Factory__OptimismResolverStub.deploy(addressManager.address, GATEWAYS, RESOLVER_ADDR);
+    callbackFunction = stub.interface.getSighash('addrWithProof(bytes, bytes)')
+    callData = stub.interface.encodeFunctionData("addr(bytes32)", [testNode])
     await stub.deployed();
   });
 
@@ -77,16 +80,15 @@ describe("OptimismResolverStub", function() {
   });
 
   describe('addr', async () => {
-    it.only('returns a CCIP-read error', async () => {
+    it('returns a CCIP-read error', async () => {
       try{
-        console.log(stub)
-        console.log(stub.interface.getSighash("addr(bytes32)"))
-//         const fragment = iface.getFunction("balanceOf")
-// iface.getSighash(fragment);
-        await stub.addr(testNode)
+        await stub["addr(bytes32)"](testNode)
       }catch(e){
-        console.log(e)
         expect(e.errorName).to.equal('OffchainLookup')
+        expect(e.errorArgs.urls[0]).to.equal(GATEWAYS[0])
+        expect(e.errorArgs.callbackFunction).to.equal(callbackFunction)
+        expect(e.errorArgs.callData).to.equal(callData)
+        expect(e.errorArgs.extraData).to.equal(testNode)
       }
     });
   });
@@ -140,7 +142,8 @@ describe("OptimismResolverStub", function() {
     })
 
     it("should verify proofs of resolution results", async function() {
-      expect(await stub.addrWithProof(testNode, proof)).to.equal(testAddress);
+      const responseData = proofInterface.encodeFunctionResult("addr(bytes32)", [proof])
+      expect(await stub.addrWithProof(responseData, testNode)).to.equal(testAddress);
     });
   });
 });
