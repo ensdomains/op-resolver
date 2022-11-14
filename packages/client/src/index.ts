@@ -6,7 +6,7 @@ const namehash = require('eth-ens-namehash');
 const StubAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/OptimismResolverStub.json').abi
 const IResolverAbi = require('../../contracts/artifacts/contracts/l1/OptimismResolverStub.sol/IResolverService.json').abi
 const program = new Command();
-const { arrayify, hexConcat } = ethers.utils
+const { defaultAbiCoder, hexConcat } = require("ethers/lib/utils");
 program
   .requiredOption('-r --registry <address>', 'ENS registry address')
   .option('-l1 --l1_provider_url <url1>', 'L1_PROVIDER_URL', 'http://localhost:9545')
@@ -36,51 +36,13 @@ if(chainId && chainName){
 // provider.on("debug", console.log)
 const l2provider = new ethers.providers.JsonRpcProvider(options.l2_provider_url);
 
-function numPad(value:any) {
-  var result = arrayify(value);
-  if (result.length > 32) {
-      throw new Error("internal; should not happen");
-  }
-  var padded = new Uint8Array(32);
-  padded.set(result, 32 - result.length);
-  return padded;
-}
-function bytesPad(value:any) {
-  if ((value.length % 32) === 0) {
-      return value;
-  }
-  var result = new Uint8Array(Math.ceil(value.length / 32) * 32);
-  result.set(value);
-  return result;
-}
-
-// ABI Encodes a series of (bytes, bytes, ...)
-function encodeBytes(datas:any) {
-  var result = [];
-  var byteCount = 0;
-  // Add place-holders for pointers as we add items
-  for (var i = 0; i < datas.length; i++) {
-      result.push(null);
-      byteCount += 32;
-  }
-  for (var i = 0; i < datas.length; i++) {
-      var data = arrayify(datas[i]);
-      // Update the bytes offset
-      result[i] = numPad(byteCount);
-      // The length and padded value of data
-      result.push(numPad(data.length));
-      result.push(bytesPad(data));
-      byteCount += 32 + Math.ceil(data.length / 32) * 32;
-  }
-  return hexConcat(result);
-}
-
 (async () => {
   const l1ChainId = parseInt(await provider.send('eth_chainId', []))
   const l2ChainId = parseInt(await l2provider.send('eth_chainId', []))
-  console.log({ l1ChainId, l2ChainId })
+  
   const name = program.args[0];
   const node = namehash.hash(name)
+  console.log({ l1ChainId, l2ChainId, name, node })
   let r = await provider.getResolver(name);
   if(r){
     const resolver = new ethers.Contract(r.address, StubAbi, provider);
@@ -112,8 +74,8 @@ function encodeBytes(datas:any) {
         const responseData:any = await (fetched).json()
         if(responseData){
           try{
-            const data = hexConcat([ callbackFunction, encodeBytes([ responseData.data, extraData ]) ])
-            console.log(3, {data})
+            const encoded = defaultAbiCoder.encode([ "bytes", "bytes" ], [responseData.data, extraData]);
+            const data = hexConcat([ callbackFunction, encoded ])            
             const result = await resolver.provider.call({
               to: resolver.address,
               data

@@ -8,8 +8,6 @@ import {StateCommitmentChain} from "@eth-optimism/contracts/L1/rollup/StateCommi
 import {Lib_RLPReader} from "@eth-optimism/contracts/libraries/rlp/Lib_RLPReader.sol";
 import {Lib_BytesUtils} from "@eth-optimism/contracts/libraries/utils/Lib_BytesUtils.sol";
 
-import "hardhat/console.sol";
-
 struct L2StateProof {
     bytes32 stateRoot;
     Lib_OVMCodec.ChainBatchHeader stateRootBatchHeader;
@@ -47,7 +45,6 @@ contract OptimismResolverStub is Lib_AddressResolver {
     }
 
     function getl2Resolver() external view returns (address) {
-        console.log("***getl2Resolver ");
         return l2resolver;
     }
 
@@ -159,11 +156,7 @@ contract OptimismResolverStub is Lib_AddressResolver {
                 account.storageRoot
             );
         require(storageExists, "Storage value does not exist");
-        return
-            // Lib_BytesUtils.toBytes32PadLeft(
-            //     Lib_RLPReader.readBytes(retrievedValue)
-            // );
-            toBytes32PadLeft(Lib_RLPReader.readBytes(retrievedValue));
+        return toBytes32PadLeft(Lib_RLPReader.readBytes(retrievedValue));
     }
 
     // Ported old function from Lib_BytesUtils.sol
