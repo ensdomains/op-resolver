@@ -26,20 +26,33 @@ const {l1_provider_url , l2_provider_url , l2_resolver_address, l1_chain_id, l2_
 const l1_provider = new ethers.providers.JsonRpcProvider(l1_provider_url);
 const l2_provider = new ethers.providers.JsonRpcProvider(l2_provider_url);
 const server = new Server();
+let storageOption:any, storageProof:any
+switch (verification_option) {
+  case 'latest':
+  case 'finalized':
+    storageOption = {
+      blockTag:verification_option
+    }
+    break;
+  default:
+    storageOption = {
+      l1BlocksAgo: 2000
+    }
+}
+if(debug) console.log({storageOption})
+
 server.add(IResolverAbi, [
   {
     type: 'addr(bytes32)',
     func: async ([node], {to, data:_callData}) => {
-      const l2resolverAddress = l2_resolver_address
       const addrSlot = ethers.utils.keccak256(node + '00'.repeat(31) + '01');
-
       if(debug){
         console.log(1, {node, to, _callData, l1_provider_url , l2_provider_url , l2_resolver_address, l1_chain_id, l2_chain_id})
         const blockNumber = (await l2_provider.getBlock('latest')).number
         console.log(2, {blockNumber, addrSlot})
         let addressData
         try{
-          addressData = await l2_provider.getStorageAt(l2resolverAddress, addrSlot)
+          addressData = await l2_provider.getStorageAt(l2_resolver_address, addrSlot)
         }catch(e){
           console.log(3, {e})
         }
@@ -53,22 +66,9 @@ server.add(IResolverAbi, [
         l1SignerOrProvider: l1_provider,
         l2SignerOrProvider: l2_provider
       })
-      let storageOption, storageProof
+
       try{
-        switch (verification_option) {
-          case 'latest':
-          case 'finalized':
-            storageOption = {
-              blockTag:verification_option
-            }
-            break;
-          default:
-            storageOption = {
-              l1BlocksAgo: 2000
-            }
-        }
-        if(debug) console.log({storageOption})
-        storageProof = await crossChainMessenger.getStorageProof(l2resolverAddress, addrSlot, storageOption)
+        storageProof = await crossChainMessenger.getStorageProof(l2_resolver_address, addrSlot, storageOption)
         if(debug) console.log({storageProof})
         console.log(storageProof)
       }catch(e){
